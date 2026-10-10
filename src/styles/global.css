@@ -1,20 +1,22 @@
 /* ========== Design tokens ========== */
 :root {
+  color-scheme: dark;
   --green-900: #12301f;
   --green-800: #1a4d2e;
   --green-700: #22633b;
   --green-600: #2e7d46;
-  --green-100: #e6f2ea;
+  --green-100: #17261d;
+  --green-300: #8fcba2;
   --accent: #f2b33d;
   --accent-dark: #d99a22;
-  --ink: #1d2420;
-  --muted: #5d6b63;
-  --line: #e3e8e4;
-  --bg: #ffffff;
-  --bg-alt: #f6f8f5;
+  --ink: #eef2ee;
+  --muted: #a3afa6;
+  --line: #27322b;
+  --bg: #0e1210;
+  --bg-alt: #151b17;
   --radius: 14px;
-  --shadow: 0 10px 30px rgba(18, 48, 31, 0.08);
-  --shadow-lg: 0 20px 45px rgba(18, 48, 31, 0.14);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.5);
   --nav-height: 72px;
 }
 
@@ -70,7 +72,7 @@ img {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--green-600);
+  color: var(--green-300);
   margin-bottom: 12px;
 }
 
@@ -152,6 +154,19 @@ img {
   align-items: center;
   gap: 10px;
   text-decoration: none;
+}
+
+.logo-img {
+  display: block;
+  height: 56px;
+  width: auto;
+}
+
+.hero-logo {
+  display: block;
+  height: 120px;
+  width: auto;
+  margin-bottom: 20px;
 }
 
 .logo-mark {
@@ -252,13 +267,32 @@ img {
   align-items: center;
   padding: calc(var(--nav-height) + 40px) 0 80px;
   color: #fff;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 80% 20%, var(--green-600), var(--green-900) 70%);
+}
+
+.hero-lawn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* darkens the left side so the headline stays readable over the lawn */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
-    linear-gradient(110deg, rgba(18, 48, 31, 0.92) 0%, rgba(18, 48, 31, 0.6) 55%, rgba(18, 48, 31, 0.35) 100%),
-    url("../images/lawn1.jpg") center / cover no-repeat,
-    radial-gradient(circle at 80% 20%, var(--green-600), var(--green-900) 70%);
+    linear-gradient(to bottom, rgba(14, 18, 16, 0) 62%, var(--bg) 100%),
+    linear-gradient(110deg, rgba(14, 22, 17, 0.9) 0%, rgba(14, 22, 17, 0.55) 50%, rgba(14, 22, 17, 0.2) 100%);
 }
 
 .hero-content {
+  position: relative;
+  z-index: 2;
   max-width: 1140px;
 }
 
@@ -295,7 +329,7 @@ img {
 }
 
 .section-alt {
-  background: var(--bg-alt);
+  background: linear-gradient(to bottom, var(--bg) 0%, var(--bg-alt) 22%, var(--bg-alt) 78%, var(--bg) 100%);
 }
 
 .section-header {
@@ -323,7 +357,7 @@ img {
 }
 
 .service-card {
-  background: var(--bg);
+  background: var(--bg-alt);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 32px 28px;
@@ -343,7 +377,7 @@ img {
   place-items: center;
   border-radius: 12px;
   background: var(--green-100);
-  color: var(--green-700);
+  color: var(--green-300);
   margin-bottom: 20px;
 }
 
@@ -404,7 +438,7 @@ img {
   background:
     repeating-linear-gradient(135deg, transparent 0 14px, rgba(46, 125, 70, 0.06) 14px 28px),
     var(--green-100);
-  color: var(--green-700);
+  color: var(--green-300);
   font-weight: 600;
   box-shadow: none;
   border: 2px dashed rgba(46, 125, 70, 0.3);
@@ -475,6 +509,7 @@ img {
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   background: var(--bg);
+  border: 1px solid var(--line);
 }
 
 .contact-info {
@@ -550,14 +585,15 @@ img {
   border-radius: 10px;
   font: inherit;
   font-weight: 400;
-  background: var(--bg-alt);
+  background: var(--bg);
+  color: var(--ink);
   transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  background: #fff;
+  background: var(--bg-alt);
   border-color: var(--green-600);
   box-shadow: 0 0 0 4px rgba(46, 125, 70, 0.15);
 }
@@ -575,11 +611,11 @@ img {
 }
 
 .form-status.success {
-  color: var(--green-700);
+  color: var(--green-300);
 }
 
 .form-status.error {
-  color: #b42318;
+  color: #ff8a80;
 }
 
 @media (max-width: 860px) {
@@ -603,9 +639,9 @@ img {
 
 /* ========== Footer ========== */
 .footer {
-  background: var(--green-900);
+  background: linear-gradient(to bottom, var(--bg) 0%, var(--green-900) 140px);
   color: rgba(255, 255, 255, 0.8);
-  padding: 48px 0 24px;
+  padding: 150px 0 24px;
 }
 
 .footer-inner {
@@ -676,4 +712,109 @@ img {
 
 .back-to-top:hover {
   background: var(--accent-dark);
+}
+
+
+/* ========== Before / After ========== */
+.ba-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.ba {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.ba-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  user-select: none;
+}
+
+.ba-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.ba-before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.ba-tag {
+  position: absolute;
+  top: 14px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(14, 18, 16, 0.7);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+.ba-tag-before {
+  left: 14px;
+}
+
+.ba-tag-after {
+  right: 14px;
+  background: var(--accent);
+  color: var(--green-900);
+}
+
+.ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 3px;
+  margin-left: -1.5px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.ba-handle span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--green-900);
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+
+.ba figcaption {
+  padding: 14px 18px 16px;
+  font-weight: 600;
 }

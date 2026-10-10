@@ -24,10 +24,11 @@ const Navbar = () => {
     <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="container navbar-inner">
         <a href="#top" className="navbar-logo" onClick={closeMenu}>
-          <span className="logo-mark">K</span>
-          <span className="logo-text">
-            Koetter's <span>Lawn &amp; Landscaping</span>
-          </span>
+          <img
+            className="logo-img"
+            src={`${process.env.PUBLIC_URL}/images/logo.png`}
+            alt="Koetter's Lawn & Landscaping"
+          />
         </a>
 
         <button

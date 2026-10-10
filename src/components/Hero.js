@@ -1,9 +1,16 @@
 import React from "react";
+import HeroLawn from "./HeroLawn";
 
 const Hero = () => {
   return (
     <section id="top" className="hero">
+      <HeroLawn />
       <div className="container hero-content" data-aos="fade-up">
+        <img
+          className="hero-logo"
+          src={`${process.env.PUBLIC_URL}/images/logo.png`}
+          alt="Koetter's Lawn & Landscaping"
+        />
         <p className="eyebrow">Serving the Northern Twin Cities Suburbs</p>
         <h1>
           A yard you're proud of, <span>without lifting a finger.</span>
