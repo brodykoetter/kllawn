@@ -1,21 +1,51 @@
 import React from "react";
-import "../styles/global.css";
+
+const values = [
+  {
+    title: "Detail-obsessed",
+    text: "Clean edges, no missed spots, and a tidy property when we leave.",
+  },
+  {
+    title: "Reliable",
+    text: "We show up when we say we will and keep you in the loop.",
+  },
+  {
+    title: "Fairly priced",
+    text: "Straightforward quotes with no surprises on the bill.",
+  },
+];
 
 const Mission = () => {
   return (
-    <div id="mission" className="mission">
-      <h2>Our Mission</h2>
-      <div className="mission-content">
-        <p>
-          <strong>At Koetter’s Lawn and Landscaping</strong>, our mission is to transform outdoor spaces into 
-          beautiful, thriving landscapes that bring lasting value to our clients.
-        </p>
-        <p>
-          We are committed to providing <strong>top-quality lawn care</strong> and landscaping services with a focus 
-          on attention to detail and <strong>exceptional customer service</strong>.
-        </p>
+    <section id="about" className="section">
+      <div className="container about-grid">
+        <div className="about-text" data-aos="fade-right">
+          <p className="eyebrow">About Us</p>
+          <h2>Local, hands-on, and serious about quality</h2>
+          <p>
+            Koetter's Lawn &amp; Landscaping is a locally owned business serving the northern
+            Twin Cities suburbs. Our goal is simple: turn your outdoor space into something
+            you love coming home to, and make the whole process easy.
+          </p>
+          <p>
+            When you work with us, you're working directly with the owner. That means real
+            accountability, clear communication, and work we're proud to put our name on.
+          </p>
+        </div>
+
+        <ul className="values" data-aos="fade-left">
+          {values.map((value) => (
+            <li key={value.title}>
+              <span className="check" aria-hidden="true">✓</span>
+              <div>
+                <h3>{value.title}</h3>
+                <p>{value.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </section>
   );
 };
 

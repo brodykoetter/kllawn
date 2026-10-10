@@ -1,10 +1,21 @@
 import React from "react";
-import "../styles/global.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© 2025 Koetter's Lawn and Landscaping | All Rights Reserved</p>
+      <div className="container footer-inner">
+        <div>
+          <p className="footer-brand">Koetter's Lawn &amp; Landscaping</p>
+          <p>Proudly serving the Northern Twin Cities suburbs.</p>
+        </div>
+        <div className="footer-contact">
+          <a href="tel:6123609041">(612) 360-9041</a>
+          <a href="mailto:brodykoetter@gmail.com">brodykoetter@gmail.com</a>
+        </div>
+      </div>
+      <p className="footer-copy">
+        © {new Date().getFullYear()} Koetter's Lawn &amp; Landscaping. All rights reserved.
+      </p>
     </footer>
   );
 };

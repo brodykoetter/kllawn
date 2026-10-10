@@ -1,97 +1,104 @@
 import React, { useState } from "react";
-import "../styles/global.css";
+
+const emptyForm = { name: "", email: "", phone: "", message: "" };
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(emptyForm);
+  const [status, setStatus] = useState({ type: "", text: "" });
 
-  const [status, setStatus] = useState("");
-
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Sending...");
+    setStatus({ type: "pending", text: "Sending..." });
 
     try {
       const response = await fetch("https://formspree.io/f/xwplkgnd", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        setStatus("Message sent successfully!");
-        setFormData({ name: "", email: "", phone: "", message: "" }); // Clear form
+        setStatus({ type: "success", text: "Thanks! We'll get back to you within one business day." });
+        setFormData(emptyForm);
       } else {
-        setStatus("Failed to send. Try again later.");
+        setStatus({ type: "error", text: "Something went wrong. Please try again or give us a call." });
       }
     } catch (error) {
-      setStatus("Error sending message.");
+      setStatus({ type: "error", text: "Couldn't send your message. Please try again or give us a call." });
     }
   };
 
   return (
-    <div id="contact" className="contact">
-      <h2>Contact Us</h2>
-      <div className="contact-container">
-        {/* Contact Form */}
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="phone"
-            placeholder="Your Phone Number"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            name="message"
-            placeholder="Your Message"
-            rows="5"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit">Send Message</button>
-        </form>
+    <section id="contact" className="section section-alt">
+      <div className="container">
+        <div className="section-header" data-aos="fade-up">
+          <p className="eyebrow">Get in Touch</p>
+          <h2>Get your free quote</h2>
+          <p>Tell us a bit about your yard and what you need. No pressure, no obligation.</p>
+        </div>
 
-        {/* Owner's Contact Information */}
-        <div className="contact-info">
-          <h3>Owner: Brody Koetter</h3>
-          <p>📞 <a href="tel:6123609041">(612) 360-9041</a></p>
-          <p>📧 <a href="mailto:brodykoetter@gmail.com">brodykoetter@gmail.com</a></p>
-          <p>📍 Northern Twin Cities, MN Suburbs</p>
+        <div className="contact-grid" data-aos="fade-up">
+          <aside className="contact-info">
+            <h3>Talk to the owner directly</h3>
+            <p className="contact-owner">Brody Koetter</p>
+            <ul>
+              <li>
+                <span className="contact-label">Phone</span>
+                <a href="tel:6123609041">(612) 360-9041</a>
+              </li>
+              <li>
+                <span className="contact-label">Email</span>
+                <a href="mailto:brodykoetter@gmail.com">brodykoetter@gmail.com</a>
+              </li>
+              <li>
+                <span className="contact-label">Service Area</span>
+                <span>Northern Twin Cities, MN Suburbs</span>
+              </li>
+            </ul>
+          </aside>
+
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="form-row">
+              <label>
+                Name
+                <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+              </label>
+              <label>
+                Phone
+                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
+              </label>
+            </div>
+            <label>
+              Email
+              <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            </label>
+            <label>
+              How can we help?
+              <textarea
+                name="message"
+                rows="5"
+                placeholder="Address, services you're interested in, anything else we should know..."
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <button type="submit" className="btn btn-primary" disabled={status.type === "pending"}>
+              {status.type === "pending" ? "Sending..." : "Request My Free Quote"}
+            </button>
+            {status.text && status.type !== "pending" && (
+              <p className={`form-status ${status.type}`} role="status">
+                {status.text}
+              </p>
+            )}
+          </form>
         </div>
       </div>
-
-      {/* Status message */}
-      {status && <p className="form-status">{status}</p>}
-    </div>
+    </section>
   );
 };
 

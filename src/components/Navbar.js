@@ -1,34 +1,58 @@
-import React, { useState } from "react";
-import "../styles/global.css";
+import React, { useEffect, useState } from "react";
+
+const links = [
+  { href: "#services", label: "Services" },
+  { href: "#gallery", label: "Our Work" },
+  { href: "#about", label: "About" },
+  { href: "#contact", label: "Contact" },
+];
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const scrollToSection = (event, sectionId) => {
-    event.preventDefault();
-    const section = document.querySelector(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      setMenuOpen(false); // Close mobile menu after clicking a link
-    }
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <nav className="navbar">
-      <h1 className="navbar-logo">Koetter's Lawn and Landscaping</h1>
+    <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="container navbar-inner">
+        <a href="#top" className="navbar-logo" onClick={closeMenu}>
+          <span className="logo-mark">K</span>
+          <span className="logo-text">
+            Koetter's <span>Lawn &amp; Landscaping</span>
+          </span>
+        </a>
 
-      {/* Hamburger Menu */}
-      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-        ☰
+        <button
+          className="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
+          {links.map((link) => (
+            <a key={link.href} href={link.href} onClick={closeMenu}>
+              {link.label}
+            </a>
+          ))}
+          <a href="#contact" className="btn btn-primary btn-sm" onClick={closeMenu}>
+            Free Quote
+          </a>
+        </nav>
       </div>
-
-      {/* Navigation Links */}
-      <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-        <li><a href="#services" onClick={(e) => scrollToSection(e, "#services")}>Services</a></li>
-        <li><a href="#mission" onClick={(e) => scrollToSection(e, "#mission")}>Our Mission</a></li>
-        <li><a href="#contact" onClick={(e) => scrollToSection(e, "#contact")}>Contact</a></li>
-      </ul>
-    </nav>
+    </header>
   );
 };
 
